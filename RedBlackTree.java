@@ -53,7 +53,7 @@ public class RedBlackTree<T extends Comparable> {
             case 1:
                 return find(node.right, key);
             default:
-                throw new RuntimeException();
+                throw new RuntimeException("Illegal compareTo() return value");
         }
     }
 
@@ -74,6 +74,8 @@ public class RedBlackTree<T extends Comparable> {
             }
         }
     }
+
+    // when inserted vertex is root
     private void insert1(RBNode<T> node) {
         if (node.parent == null) {
             node.isBlack = true;
@@ -82,6 +84,7 @@ public class RedBlackTree<T extends Comparable> {
         }
     }
 
+    // if parent of inserted vertex is black all is right
     private void insert2(RBNode<T> node) {
         if (node.parent.isBlack) {
             return;
@@ -89,6 +92,7 @@ public class RedBlackTree<T extends Comparable> {
         insert3(node);
     }
 
+    // if parent is red and uncle is red
     private void insert3(RBNode<T> node) {
         if (node.getUncle() != null && !node.getUncle().isBlack && !node.parent.isBlack) {
             node.getUncle().isBlack = true;
@@ -148,7 +152,7 @@ class RBNode<T> {
     public RBNode<T> right;
     private T key;
 
-    public RBNode(T key, RBNode parent, boolean isBlack) {
+    public RBNode(T key, RBNode<T> parent, boolean isBlack) {
         this.key = key;
         this.parent = parent;
         this.isBlack = isBlack;
